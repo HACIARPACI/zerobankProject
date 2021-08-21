@@ -64,5 +64,29 @@ public abstract class BasePage {
     }
 
 
+    public void navigate(String tab) {
+        switch (tab) {
+            case "Account Activity":
+                new AccountSummary().accountActivity.click();
+                break;
+            case "Account Summary":
+                new AccountSummary().accountSummary.click();
+                break;
+            case "Transfer Funds":
+                new AccountSummary().transferfunds.click();
+                break;
+            case "Pay Bills":
+                new AccountSummary().payBills.click();
+                break;
+            case "My Money Map":
+                new AccountSummary().myMoneyMap.click();
+                break;
+            case "Online Statements":
+                new AccountSummary().onlineStatements.click();
+                break;
 
+        }
+    }
 }
+
+

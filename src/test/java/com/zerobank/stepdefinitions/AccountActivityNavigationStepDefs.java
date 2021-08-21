@@ -2,11 +2,14 @@ package com.zerobank.stepdefinitions;
 
 import com.zerobank.pages.AccountActivity;
 import com.zerobank.pages.AccountSummary;
+import com.zerobank.utilities.BrowserUtils;
 import com.zerobank.utilities.Driver;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.support.ui.Select;
+
+import java.util.List;
 
 public class AccountActivityNavigationStepDefs {
 
@@ -48,5 +51,21 @@ public class AccountActivityNavigationStepDefs {
 
     }
 
+    @When("the user navigates to {string} Page")
+    public void the_user_navigates_to_Page(String expectedTitle) {
+        new AccountSummary().navigate(expectedTitle);
+    }
+
+    @Then("Account drop down should have the following options")
+    public void account_drop_down_should_have_the_following_options(List<String>expectedDropdownOptions) {
+     Select select= new Select(new AccountActivity().accountDropdown);
+     Assert.assertTrue(BrowserUtils.getElementsText(select.getOptions()).containsAll(expectedDropdownOptions));
+
+    }
+    @Then("Transactions table should have column names")
+    public void transactions_table_should_have_column_names(List<String>expectedColumnNames) {
+    Assert.assertEquals(expectedColumnNames,BrowserUtils.getElementsText(new AccountActivity().transactionsColumns));
+
+    }
 
 }

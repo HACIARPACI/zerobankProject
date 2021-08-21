@@ -8,15 +8,18 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.assertj.core.api.SoftAssertions;
+import org.assertj.core.api.SoftAssertionsProvider;
 
 import java.util.List;
 import java.util.Map;
 
 public class PayBillsStepDefs {
 
-
+    SoftAssertions softAssertions=new SoftAssertions();
 
 
 
@@ -82,10 +85,62 @@ public class PayBillsStepDefs {
     public void user_tries_to_calculate_cost_without_entering_a_value() {
 
         Select select= new Select(new PurchaseForeignCurrency().currencyDropdown);
-        select.selectByIndex(12);
+        select.selectByIndex(10);
         new PurchaseForeignCurrency().calculateButton.click();
+        new PurchaseForeignCurrency().calculateButton.click();
+
+    }
+    @When("the user enters the following information")
+    public void the_user_enters_the_following_information(Map<String,String>information) {
+
+        new Select(new PayBills().payeeDropdown).selectByVisibleText(information.get("Payee"));
+        new Select(new PayBills().accountDropdown).selectByVisibleText(information.get("Account"));
+        try {
+
+            new PayBills().theAmount.sendKeys(information.get("Amount"));
+          //  softAssertions.assertThat(BrowserUtils.isNumeric(information.get("Amount"))).isTrue();
+            new PayBills().date.sendKeys(information.get("Date"));
+            new PayBills().description.sendKeys(information.get("Description"));
+        }
+        catch (Exception e){
+            System.out.println("Please fill out this field message!");
+            e.printStackTrace();
+        }
 
     }
 
 
-}
+    @When("the user clicks the Pay button")
+    public void the_user_clicks_the_Pay_button() {
+        new PayBills().payButton.click();
+
+    }
+
+    @Then("the user should see the message as {string}")
+    public void the_user_should_see_the_message_as(String expectedMessage) {
+        if (expectedMessage.equals("The payment was successfully submitted.")) {
+            Assert.assertEquals(expectedMessage, new PayBills().theMessage.getText());
+        }
+
+        if (expectedMessage.equals("Please fill out this field message!")) {
+            String actualMessage = Driver.get().findElement(By.name("amount")).getAttribute("validationMessage");
+            Assert.assertEquals(expectedMessage,actualMessage);
+        }
+
+        }
+
+    @Then("the user should not see the message as {string}")
+    public void the_user_should_not_see_the_message_as(String unExpectedMessage) {
+        String actualmessage = new PayBills().theMessage.getText();
+        System.out.println(actualmessage+"            hacı");
+        BrowserUtils.waitFor(2);
+        softAssertions.assertThat(actualmessage).isNotEqualTo(unExpectedMessage);
+
+      //  softAssertions.assertAll();
+
+    }
+    }
+
+
+
+

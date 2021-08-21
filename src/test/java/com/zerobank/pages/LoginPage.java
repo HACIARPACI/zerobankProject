@@ -31,6 +31,9 @@ public class LoginPage {
         @FindBy(xpath = "//a[@id='proceed-link']")
         public WebElement link;
 
+    @FindBy(xpath ="//div[@class='alert alert-error']" )
+    public WebElement errorMessage;
+
        public void login(){
 
            signInButton.click();
@@ -40,6 +43,17 @@ public class LoginPage {
            Advanced.click();
            link.click();
 
+       }
+
+       public void login(String username,String password){
+           signInButton.click();
+           userLoginBox.sendKeys(username);
+           userPasswordBox.sendKeys(password);
+           submitButton.click();
+           if(username.equals(ConfigurationReader.get("username"))&password.equals(ConfigurationReader.get("password"))) {
+               Advanced.click();
+               link.click();
+           }
        }
 
 }
