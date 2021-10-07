@@ -67,5 +67,10 @@ public class AccountActivityNavigationStepDefs {
     Assert.assertEquals(expectedColumnNames,BrowserUtils.getElementsText(new AccountActivity().transactionsColumns));
 
     }
+    @When("the user navigate to {string} Page")
+    public void the_user_navigate_to_Page(String selectedTitle) {
+        new AccountSummary().menuSelect(selectedTitle ).click();
+
+    }
 
 }

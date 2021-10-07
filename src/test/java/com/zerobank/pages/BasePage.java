@@ -36,6 +36,11 @@ public abstract class BasePage {
     @FindBy(xpath = "//ul[@class='nav nav-tabs']//a[text()='Online Statements']")
     public WebElement onlineStatements;
 
+    public WebElement menuSelect(String name){
+        WebElement names= Driver.get().findElement(By.xpath("//ul[@class='nav nav-tabs']//a[text()='"+name+"']"));
+        return names;
+    }
+
     @FindBy(xpath = "(//li[@class='dropdown'])[2]")
     public WebElement userName;
 

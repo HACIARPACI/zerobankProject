@@ -47,8 +47,13 @@ public class findTransactionsStepDefs {
 
         for ( String  str: BrowserUtils.getElementsText(new FindTransactions().dateColumnData)) {
             Assert.assertTrue(str.compareTo(fromDate)>=0&str.compareTo(toDate)<=0);
-        }
 
+        }
+     /*   List<String> elementsText = BrowserUtils.getElementsText(new FindTransactions().dateColumnData);
+        for (String s : elementsText) {
+            Assert.assertTrue(s.compareTo(fromDate)>=0&s.compareTo(toDate)<=0);
+        }
+    */
         System.out.println("on numero");
 
 

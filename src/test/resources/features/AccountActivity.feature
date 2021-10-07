@@ -1,8 +1,8 @@
 Feature: Navigating to Account Activity Page
-
   Background:
     Given the user is logged in
-    When the user navigates to "Account Activity" Page
+   #When the user navigates to "Account Activity" Page
+    When the user navigate to "Account Activity" Page
 
   Scenario: Account Activity Title
     Then the user should see the the title "Zero - Account Activity"

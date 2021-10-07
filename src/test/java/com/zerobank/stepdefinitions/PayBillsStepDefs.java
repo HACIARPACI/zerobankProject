@@ -37,7 +37,6 @@ public class PayBillsStepDefs {
         new AddNewPayee().payeeAdress.sendKeys(information.get("Payee Address"));
         new AddNewPayee().payeeAccount.sendKeys(information.get("Account"));
         new AddNewPayee().payeeDetails.sendKeys(information.get("Payee Details"));
-
         new AddNewPayee().addButton.click();
     }
 
